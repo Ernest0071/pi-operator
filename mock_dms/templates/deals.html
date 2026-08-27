@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block body %}
+<h1>Deals</h1>
+<div class="card"><a class="btn" href="/deals/new">Start Deal</a></div>
+<div class="card"><table>
+  <thead><tr><th>Deal</th><th>Customer</th><th>Vehicle</th><th>F&amp;I</th>
+      <th>Total</th><th>Status</th></tr></thead>
+  <tbody>{% for d in deals %}
+    <tr><td>#{{ d.id }}</td><td>{{ d.customer_name }}</td>
+        <td>{{ d.stock_no }} {{ d.make }} {{ d.model }}</td>
+        <td>{{ d.fi_products or '—' }}</td>
+        <td>${{ '{:,.0f}'.format(d.total or 0) }}</td><td>{{ d.status }}</td></tr>
+  {% else %}<tr><td colspan="6" class="muted">No deals yet.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

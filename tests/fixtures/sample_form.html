@@ -1,0 +1,24 @@
+<!doctype html><html><head><title>Vehicle Intake</title></head><body>
+<nav aria-label="Main"><a href="/inventory">Inventory</a><a href="/deals">Deals</a></nav>
+<main>
+<h1>Add Vehicle</h1>
+<form>
+  <fieldset><legend>Identification</legend>
+    <label for="vin">VIN</label><input id="vin" name="vin" required>
+    <label for="make">Make</label>
+    <select id="make"><option value="">-- select --</option><option>Toyota</option><option selected>Honda</option></select>
+    <label for="miles">Mileage</label><input id="miles" type="number" value="42000">
+  </fieldset>
+  <fieldset><legend>Pricing</legend>
+    <label for="price">Asking Price</label><input id="price" value="18500">
+    <input type="checkbox" id="cert" checked><label for="cert">Certified Pre-Owned</label>
+    <button type="submit">Save</button>
+  </fieldset>
+</form>
+<div role="alert">VIN is required</div>
+<div style="display:none"><button>Hidden Save</button></div>
+<table><caption>Recent Intake</caption>
+  <thead><tr><th>Stock</th><th>Model</th><th>Price</th></tr></thead>
+  <tbody><tr><td>A1</td><td>Civic</td><td>18500</td></tr><tr><td>A2</td><td>Camry</td><td>21000</td></tr></tbody>
+</table>
+</main></body></html>

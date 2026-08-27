@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block body %}
+<h1>Service — Repair Orders</h1>
+<div class="card"><table>
+  <thead><tr><th>RO</th><th>Vehicle</th><th>Complaint</th><th>Technician</th><th>Status</th></tr></thead>
+  <tbody>{% for o in orders %}
+    <tr><td>{{ o.ro_number }}</td><td>{{ o.stock_no }} {{ o.make }} {{ o.model }}</td>
+        <td>{{ o.complaint }}</td><td>{{ o.technician }}</td><td>{{ o.status }}</td></tr>
+  {% else %}<tr><td colspan="5" class="muted">No open repair orders.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

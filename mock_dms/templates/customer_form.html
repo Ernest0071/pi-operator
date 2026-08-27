@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% block body %}{% set p = rid() %}
+<h1>Add Customer</h1>
+{% if errors %}<div class="alert" role="alert">{{ errors.values()|join(' ') }}</div>{% endif %}
+<div class="card"><form method="post" action="/customers/new">
+  <label for="c{{ p }}_name">Customer Name</label>
+  <input id="c{{ p }}_name" name="name" value="{{ values.name or '' }}" required>
+  {% if errors.name %}<div class="error" role="alert">{{ errors.name }}</div>{% endif %}
+
+  <label for="c{{ p }}_email">Email</label>
+  <input id="c{{ p }}_email" name="email" value="{{ values.email or '' }}">
+  {% if errors.email %}<div class="error" role="alert">{{ errors.email }}</div>{% endif %}
+
+  <label for="c{{ p }}_phone">Phone</label>
+  <input id="c{{ p }}_phone" name="phone" value="{{ values.phone or '' }}">
+
+  <label for="c{{ p }}_group">Customer Group</label>
+  <select id="c{{ p }}_group" name="customer_group">
+    {% for g in ['Retail','Fleet','Wholesale'] %}<option>{{ g }}</option>{% endfor %}
+  </select>
+
+  <div style="margin-top:1rem"><button type="submit">{{ label('Save Customer') }}</button>
+  <a class="btn secondary" href="/customers">Cancel</a></div>
+</form></div>
+{% endblock %}

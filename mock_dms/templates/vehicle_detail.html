@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block body %}
+<h1>{{ v.year }} {{ v.make }} {{ v.model }} <span class="muted">{{ v.stock_no }}</span></h1>
+<div class="ok" role="status">Vehicle record saved.</div>
+<div class="card"><table>
+  <tr><th>Stock Number</th><td>{{ v.stock_no }}</td></tr>
+  <tr><th>VIN</th><td>{{ v.vin }}</td></tr>
+  <tr><th>Year</th><td>{{ v.year }}</td></tr>
+  <tr><th>Make</th><td>{{ v.make }}</td></tr>
+  <tr><th>Model</th><td>{{ v.model }}</td></tr>
+  <tr><th>Trim</th><td>{{ v.trim }}</td></tr>
+  <tr><th>Mileage</th><td>{{ '{:,}'.format(v.mileage or 0) }}</td></tr>
+  <tr><th>Condition</th><td>{{ v.condition }}</td></tr>
+  <tr><th>Asking Price</th><td>${{ '{:,.0f}'.format(v.price or 0) }}</td></tr>
+  <tr><th>Status</th><td>{{ v.status }}</td></tr>
+</table></div>
+<a class="btn secondary" href="/inventory">Back to Inventory</a>
+{% endblock %}

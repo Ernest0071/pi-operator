@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block body %}
+<h1>Dashboard</h1>
+<div class="card">
+  <table>
+    <tr><th>Metric</th><th>Value</th></tr>
+    <tr><td>Vehicles in inventory</td><td>{{ stats.vehicles }}</td></tr>
+    <tr><td>Customers</td><td>{{ stats.customers }}</td></tr>
+    <tr><td>Open deals</td><td>{{ stats.open_deals }}</td></tr>
+  </table>
+</div>
+<div class="card">
+  <a class="btn" href="/inventory/new">Add Vehicle</a>
+  <a class="btn" href="/customers/new" style="background:#6b7280">Add Customer</a>
+  <a class="btn" href="/deals/new" style="background:#6b7280">Start Deal</a>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block body %}
+<h1>New Deal</h1>
+<div class="steps"><span>1. Customer</span><span>2. Vehicle</span><span class="active">3. F&amp;I and Submit</span></div>
+<div class="card">
+{% if vehicle %}<p class="muted">Vehicle: {{ vehicle.stock_no }} — {{ vehicle.year }}
+  {{ vehicle.make }} {{ vehicle.model }} at ${{ '{:,.0f}'.format(vehicle.price or 0) }}</p>{% endif %}
+<form method="post" action="/deals/new?step=3">
+  <fieldset><legend>F&amp;I Products</legend>
+    {% for p in ['Extended Warranty','GAP Insurance','Paint Protection','Tire and Wheel'] %}
+    <div><input type="checkbox" id="fi{{ loop.index }}" name="fi_products" value="{{ p }}">
+      <label for="fi{{ loop.index }}" style="display:inline;font-weight:400">{{ p }} (+$750)</label></div>
+    {% endfor %}
+  </fieldset>
+  <button type="submit"
+    onclick="return confirm('Submit this deal to finance? This cannot be undone.')">
+    Submit for Finance Approval</button>
+  <a class="btn secondary" href="/deals/new?step=2">Back</a>
+</form></div>
+{% endblock %}
