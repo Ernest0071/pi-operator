@@ -1,6 +1,6 @@
 # Scenario I — Dealership Engagement Comparison
 
-Range **30 Days** · generated 2026-09-01 15:05 UTC
+Range **30 Days** · generated 2026-09-01 20:59 UTC
 
 ## Top 3 events
 
@@ -22,9 +22,10 @@ Range **30 Days** · generated 2026-09-01 15:05 UTC
 
 ## How this was produced
 
-The operator signed in with a saved session, opened each dealership from the
-sidebar tree by its id, switched to the Analytics tab, applied the date range,
-and read the User Engagement card from the DOM. Values are read from the
-chart's legend markup rather than from the rendered canvas.
+The operator signed in with a saved session, resolved each dealership from the
+sidebar tree to its id, opened the Analytics view directly by URL, applied the
+date range and read the User Engagement card from the DOM. Values come from the
+chart's legend markup rather than from the rendered canvas, so no image
+recognition is involved.
 
-Sources: https://seezar-dashboard.seez.dev/dealership/2/analytics/527 · https://seezar-dashboard.seez.dev/dealership/11929/analytics/454
+Sources: https://seezar-dashboard.seez.dev/dealership/2/analytics/526 · https://seezar-dashboard.seez.dev/dealership/11929/analytics/454

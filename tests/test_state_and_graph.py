@@ -41,7 +41,7 @@ def test_terminal_status():
 
 
 def _supervisor():
-    target = get_target("mockdms")
+    target = get_target("seezar")
     return Supervisor(session=None, target=target, planner=None, navigator=None,
                       verifier=None, policy=Policy.for_target(target))
 

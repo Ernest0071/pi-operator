@@ -5,7 +5,7 @@
       "dealership_id": "2",
       "dealership_name": "Ejner Hessel",
       "date_range": "30 Days",
-      "url": "https://seezar-dashboard.seez.dev/dealership/2/analytics/527",
+      "url": "https://seezar-dashboard.seez.dev/dealership/2/analytics/526",
       "total_clicks": 200,
       "events": {
         "Forms submitted": {
@@ -82,7 +82,7 @@
       "right": 130
     }
   ],
-  "generated_at": "2026-09-01 15:05 UTC",
+  "generated_at": "2026-09-01 20:59 UTC",
   "warnings": [
     "Both dealerships return identical engagement figures, which matches the example in the brief exactly. This card appears to serve fixed data on this environment rather than per-dealership values; the comparison is reported as a tie rather than inventing a winner."
   ]

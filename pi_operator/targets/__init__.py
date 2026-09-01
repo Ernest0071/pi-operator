@@ -1,15 +1,17 @@
-"""Target registry."""
+"""Target registry.
+
+All dashboard-specific knowledge lives behind `TargetAdapter`, so pointing the
+operators at a different system means implementing that class and nothing else.
+"""
 
 from __future__ import annotations
 
 from pi_operator.config import settings
 from pi_operator.targets.base import TargetAdapter
-from pi_operator.targets.mockdms import MockDMSAdapter
 from pi_operator.targets.seezar import SeezarAdapter
 
 ADAPTERS: dict[str, type[TargetAdapter]] = {
     SeezarAdapter.name: SeezarAdapter,
-    MockDMSAdapter.name: MockDMSAdapter,
 }
 
 
@@ -25,4 +27,4 @@ def get_target(name: str | None = None, **overrides) -> TargetAdapter:
     )
 
 
-__all__ = ["ADAPTERS", "ERPNextAdapter", "MockDMSAdapter", "TargetAdapter", "get_target"]
+__all__ = ["ADAPTERS", "SeezarAdapter", "TargetAdapter", "get_target"]

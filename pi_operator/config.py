@@ -20,8 +20,8 @@ class Settings(BaseSettings):
     planner_model: str = "claude-sonnet-5"
 
     # --- target under automation ---
-    target: str = "mockdms"
-    target_base_url: str = "http://localhost:8080"
+    target: str = "seezar"
+    target_base_url: str = "https://seezar-dashboard.seez.dev"
     target_username: str = ""
     target_password: str = ""
 

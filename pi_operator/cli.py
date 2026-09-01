@@ -61,46 +61,13 @@ def run(
     raise typer.Exit(0 if state.status.value == "succeeded" else 1)
 
 
-@app.command("eval")
-def eval_cmd(
-    scenario: str = typer.Option(None, "--scenario", "-s", help="Run one scenario by id."),
-    workflow: str = typer.Option(None, "--workflow", "-w", help="Run one workflow's scenarios."),
-    target: str = typer.Option(None, "--target", "-t"),
-    headed: bool = typer.Option(False, "--headed"),
-) -> None:
-    """Run the eval suite and write EVAL_REPORT.md."""
-    from evals.harness import run_suite
-    from evals.scenarios import SCENARIOS, by_id, by_workflow
-
-    if scenario:
-        chosen = [by_id(scenario)]
-    elif workflow:
-        chosen = by_workflow(workflow)
-    else:
-        chosen = SCENARIOS
-
-    console.print(f"Running {len(chosen)} scenario(s) against "
-                  f"[bold]{target or settings.target}[/]\n")
-    report = asyncio.run(run_suite(chosen, target_name=target, headless=not headed))
-
-    summary = report.summary()
-    table = Table(title="Eval summary", show_header=False)
-    for key, value in summary.items():
-        table.add_row(key.replace("_", " "), str(value))
-    console.print(table)
-    console.print("\nWrote [bold]EVAL_REPORT.md[/] and eval_results.json")
-    raise typer.Exit(0 if report.passed == report.total else 1)
-
-
 @app.command()
-def login(
-    target: str = typer.Option(None, "--target", "-t"),
-) -> None:
-    """Authenticate once by hand and save the session for the operator to reuse.
+def login(target: str = typer.Option(None, "--target", "-t")) -> None:
+    """Authenticate once by hand and save the session for the operators to reuse.
 
     Seezar sends a one-time code by email, so there is no password an agent
     could hold. A human completes the code once; every run afterwards reuses
-    the saved cookies until they expire.
+    the saved session until it expires.
     """
     import asyncio as _asyncio
 
@@ -108,6 +75,9 @@ def login(
     from pi_operator.targets import get_target
 
     adapter = get_target(target)
+    if not hasattr(adapter, "bootstrap_login"):
+        console.print(f"[red]{adapter.name} does not use interactive login.[/]")
+        raise typer.Exit(2)
 
     async def go() -> bool:
         session = BrowserSession(headless=False, base_url=adapter.base_url)
@@ -134,10 +104,6 @@ def login(
         finally:
             await session.close()
 
-    if not hasattr(adapter, "bootstrap_login"):
-        console.print(f"[red]{adapter.name} does not use interactive login.[/]")
-        raise typer.Exit(2)
-
     if asyncio.run(go()):
         console.print(f"\n[green]Session saved[/] to {adapter.auth_state_path}")
         console.print("It is gitignored. Re-run `pi login` whenever it expires.")
@@ -147,18 +113,14 @@ def login(
 
 
 @app.command()
-def recon(
-    headed: bool = typer.Option(False, "--headed", help="Watch the reconnaissance run."),
-) -> None:
-    """Log in to the target and record its real structure into recon/."""
+def recon(headed: bool = typer.Option(False, "--headed", help="Watch it work.")) -> None:
+    """Survey the dashboard's real structure and record it into recon/."""
     from pi_operator.recon import run_recon
     from pi_operator.targets import get_target
 
     adapter = get_target()
-    # Targets behind OTP/SSO have no password — a saved session is the credential.
     if not adapter.auth_state_path.exists() and not settings.target_password:
-        console.print(f"[red]No saved session for {adapter.name} and no password set.[/]")
-        console.print("Run `pi login` first, or set PI_TARGET_PASSWORD in .env")
+        console.print(f"[red]No saved session for {adapter.name}.[/] Run `pi login` first.")
         raise typer.Exit(2)
     console.print(f"Reconnoitring [bold]{settings.target_base_url}[/]\n")
     asyncio.run(run_recon(headless=not headed))
@@ -206,8 +168,8 @@ def scenario_cmd(
 
     path, result = asyncio.run(go())
     console.print(f"\n[green]Report written:[/] {path}")
-    for warning in getattr(result, "warnings", [])[:6]:
-        console.print(f"  [yellow]note:[/] {warning}")
+    for note in (getattr(result, "warnings", None) or getattr(result, "notes", []))[:6]:
+        console.print(f"  [yellow]note:[/] {note}")
 
 
 @app.command()
@@ -220,24 +182,6 @@ def serve(
 
     console.print(f"Operator console: [bold]http://{host}:{port}/[/]")
     uvicorn.run("pi_operator.api.main:app", host=host, port=port, log_level="info")
-
-
-@app.command()
-def dms(
-    host: str = typer.Option("127.0.0.1", "--host"),
-    port: int = typer.Option(8080, "--port"),
-    reset: bool = typer.Option(False, "--reset", help="Reseed the fixture database first."),
-) -> None:
-    """Start the mock DMS (the eval fixture)."""
-    import uvicorn
-
-    if reset:
-        from mock_dms import db
-
-        db.reset()
-        console.print("Reseeded the mock DMS database.")
-    console.print(f"Mock DMS: [bold]http://{host}:{port}/[/]  (operator / operator)")
-    uvicorn.run("mock_dms.app:app", host=host, port=port, log_level="info")
 
 
 skills_app = typer.Typer(help="Inspect the skill library.")
