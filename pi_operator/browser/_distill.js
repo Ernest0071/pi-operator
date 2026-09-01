@@ -86,8 +86,14 @@
       if (clean(el.value)) return clean(el.value);
     }
     // Text content is only trustworthy for elements whose label IS their text.
-    if (['BUTTON', 'A', 'OPTION', 'SUMMARY'].includes(el.tagName) || /^H[1-6]$/.test(el.tagName)) {
+    if (['BUTTON', 'A', 'OPTION', 'SUMMARY', 'LI', 'TD', 'TH'].includes(el.tagName)
+        || /^H[1-6]$/.test(el.tagName)) {
       return clean(el.innerText || el.textContent);
+    }
+    // A clickable div in an SPA: its own short text is the only label it has.
+    if (window.getComputedStyle(el).cursor === 'pointer') {
+      const t = clean(el.innerText || el.textContent);
+      if (t && t.length <= 80) return t;
     }
     return '';
   }
@@ -113,6 +119,21 @@
     const ti = el.getAttribute('tabindex');
     if (ti !== null && ti !== '-1') return true;
     return false;
+  }
+
+  // Single-page apps bind clicks with addEventListener, which leaves no
+  // attribute to detect. A pointer cursor is the one reliable trace such
+  // elements leave, and without it a whole navigation tree can read as inert.
+  const pointerIncluded = new Set();
+
+  function isPointerClickable(el) {
+    if (window.getComputedStyle(el).cursor !== 'pointer') return false;
+    // Keep the outermost pointer element in a nest so one control yields one
+    // entry rather than one per wrapper div.
+    for (let a = el.parentElement; a; a = a.parentElement) {
+      if (pointerIncluded.has(a)) return false;
+    }
+    return true;
   }
 
   function stateOf(el, role) {
@@ -201,10 +222,14 @@
 
     const explicitRole = (el.getAttribute('role') || '').toLowerCase();
     const effectiveRole = explicitRole || role;
-    const interactive = isInteractive(el, effectiveRole);
+    let interactive = isInteractive(el, effectiveRole);
     const isHeading = effectiveRole === 'heading';
 
-    if (!interactive && !isHeading) continue;
+    if (!interactive && !isHeading) {
+      if (!isVisible(el) || !isPointerClickable(el)) continue;
+      interactive = true;
+      pointerIncluded.add(el);
+    }
     if (!isVisible(el)) continue;
 
     const name = accessibleName(el);
@@ -251,6 +276,23 @@
     });
   });
 
+  // --- readable content ---
+  // Interactables tell an operator what it can DO; for an analytics task the
+  // numbers on the page are the point. Collect leaf text, skipping anything
+  // already reported as an element label.
+  const text = [];
+  const seenText = new Set(elements.map((e) => e.name).filter(Boolean));
+  const leaves = document.querySelectorAll('p, span, td, th, li, h1, h2, h3, h4, h5, dt, dd, label, div');
+  for (const el of leaves) {
+    if (text.length >= 160) break;
+    if (el.children.length) continue;                 // leaves only
+    if (!isVisible(el)) continue;
+    const t = clean(el.innerText || el.textContent);
+    if (!t || t.length > 200 || seenText.has(t)) continue;
+    seenText.add(t);
+    text.push(t);
+  }
+
   // --- anything the page is shouting about ---
   const alerts = [];
   const alertSel = '[role="alert"], [aria-live="assertive"], [aria-live="polite"], .error, .alert-danger, .invalid-feedback, .text-danger';
@@ -276,6 +318,7 @@
     elements,
     tables,
     alerts,
+    text,
     truncated: elements.length >= MAX_ELEMENTS,
     scroll: {
       y: Math.round(window.scrollY),

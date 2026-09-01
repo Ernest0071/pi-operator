@@ -46,6 +46,13 @@ class TargetAdapter(ABC):
     async def is_authenticated(self, session: BrowserSession) -> bool:
         """Cheap check used before each step to catch mid-run session expiry."""
 
+    @property
+    def auth_state_path(self):
+        """Where this target's persisted browser session is stored."""
+        from pi_operator.config import settings
+
+        return settings.auth_dir / f"{self.name}.json"
+
     async def ensure_authenticated(self, session: BrowserSession) -> bool:
         """Returns True if a re-login was performed."""
         if await self.is_authenticated(session):

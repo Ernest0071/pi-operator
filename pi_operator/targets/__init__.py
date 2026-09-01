@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from pi_operator.config import settings
 from pi_operator.targets.base import TargetAdapter
-from pi_operator.targets.erpnext import ERPNextAdapter
 from pi_operator.targets.mockdms import MockDMSAdapter
+from pi_operator.targets.seezar import SeezarAdapter
 
 ADAPTERS: dict[str, type[TargetAdapter]] = {
-    ERPNextAdapter.name: ERPNextAdapter,
+    SeezarAdapter.name: SeezarAdapter,
     MockDMSAdapter.name: MockDMSAdapter,
 }
 

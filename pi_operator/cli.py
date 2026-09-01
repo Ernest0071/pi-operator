@@ -93,6 +93,124 @@ def eval_cmd(
 
 
 @app.command()
+def login(
+    target: str = typer.Option(None, "--target", "-t"),
+) -> None:
+    """Authenticate once by hand and save the session for the operator to reuse.
+
+    Seezar sends a one-time code by email, so there is no password an agent
+    could hold. A human completes the code once; every run afterwards reuses
+    the saved cookies until they expire.
+    """
+    import asyncio as _asyncio
+
+    from pi_operator.browser.session import BrowserSession
+    from pi_operator.targets import get_target
+
+    adapter = get_target(target)
+
+    async def go() -> bool:
+        session = BrowserSession(headless=False, base_url=adapter.base_url)
+        await session.start()
+        try:
+            console.print(f"Opening [bold]{adapter.base_url}/login[/] in a browser window.")
+            if settings.target_username:
+                console.print(f"Email [bold]{settings.target_username}[/] will be pre-filled.")
+            console.print("\n  1. Request the one-time code")
+            console.print("  2. Fetch it from your email and enter it")
+            console.print("  3. Wait until the dashboard has loaded\n")
+
+            async def wait_for_human() -> None:
+                await _asyncio.get_running_loop().run_in_executor(
+                    None, lambda: typer.prompt(
+                        "Press Enter once you are signed in and can see the dashboard",
+                        default="", show_default=False)
+                )
+
+            ok = await adapter.bootstrap_login(session, wait_for_human)
+            if ok:
+                await session.save_auth(adapter.auth_state_path)
+            return ok
+        finally:
+            await session.close()
+
+    if not hasattr(adapter, "bootstrap_login"):
+        console.print(f"[red]{adapter.name} does not use interactive login.[/]")
+        raise typer.Exit(2)
+
+    if asyncio.run(go()):
+        console.print(f"\n[green]Session saved[/] to {adapter.auth_state_path}")
+        console.print("It is gitignored. Re-run `pi login` whenever it expires.")
+    else:
+        console.print("\n[red]Still not authenticated.[/] The session was not saved.")
+        raise typer.Exit(1)
+
+
+@app.command()
+def recon(
+    headed: bool = typer.Option(False, "--headed", help="Watch the reconnaissance run."),
+) -> None:
+    """Log in to the target and record its real structure into recon/."""
+    from pi_operator.recon import run_recon
+    from pi_operator.targets import get_target
+
+    adapter = get_target()
+    # Targets behind OTP/SSO have no password — a saved session is the credential.
+    if not adapter.auth_state_path.exists() and not settings.target_password:
+        console.print(f"[red]No saved session for {adapter.name} and no password set.[/]")
+        console.print("Run `pi login` first, or set PI_TARGET_PASSWORD in .env")
+        raise typer.Exit(2)
+    console.print(f"Reconnoitring [bold]{settings.target_base_url}[/]\n")
+    asyncio.run(run_recon(headless=not headed))
+
+
+@app.command("scenario")
+def scenario_cmd(
+    which: str = typer.Argument(..., help="Which scenario to run: 'one' or 'four'."),
+    date_range: str = typer.Option("30 Days", "--range", help="Analytics range."),
+    compare_range: str = typer.Option("90 Days", "--compare", help="Scenario IV: second range."),
+    limit: int = typer.Option(10, "--limit", help="Scenario IV: how many dealerships."),
+    headed: bool = typer.Option(False, "--headed", help="Watch the browser."),
+) -> None:
+    """Run an assessment scenario and write its report to reports/."""
+    from pi_operator.browser.session import BrowserSession
+    from pi_operator.targets import get_target
+
+    adapter = get_target()
+    if not adapter.auth_state_path.exists():
+        console.print("[red]No saved session.[/] Run `pi login` first.")
+        raise typer.Exit(2)
+
+    async def go():
+        session = BrowserSession(headless=not headed, base_url=adapter.base_url,
+                                 storage_state=adapter.auth_state_path)
+        await session.start()
+        try:
+            if which.lower() in ("one", "1", "i"):
+                from pi_operator.scenarios import scenario_one as mod
+
+                result = await mod.run_scenario_one(session, adapter, date_range=date_range)
+                return mod.save(result), result
+            if which.lower() in ("four", "4", "iv"):
+                from pi_operator.scenarios import scenario_four as mod
+
+                result = await mod.run_scenario_four(
+                    session, adapter, primary=date_range,
+                    comparison=compare_range, limit=limit,
+                )
+                return mod.save(result), result
+            console.print(f"[red]Unknown scenario {which!r}.[/] Use 'one' or 'four'.")
+            raise typer.Exit(2)
+        finally:
+            await session.close()
+
+    path, result = asyncio.run(go())
+    console.print(f"\n[green]Report written:[/] {path}")
+    for warning in getattr(result, "warnings", [])[:6]:
+        console.print(f"  [yellow]note:[/] {warning}")
+
+
+@app.command()
 def serve(
     host: str = typer.Option("127.0.0.1", "--host"),
     port: int = typer.Option(8090, "--port"),

@@ -10,3 +10,8 @@ runs/
 traces/
 node_modules/
 /docs
+.auth/
+
+# Raw captures of the client's live dashboard: full-page HTML and
+# screenshots containing dealership contact details. Kept local.
+recon/

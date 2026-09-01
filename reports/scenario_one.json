@@ -1,0 +1,89 @@
+{
+  "date_range": "30 Days",
+  "readings": [
+    {
+      "dealership_id": "2",
+      "dealership_name": "Ejner Hessel",
+      "date_range": "30 Days",
+      "url": "https://seezar-dashboard.seez.dev/dealership/2/analytics/527",
+      "total_clicks": 200,
+      "events": {
+        "Forms submitted": {
+          "percent": 65.0,
+          "count": 130.0
+        },
+        "CTAs clicked": {
+          "percent": 15.0,
+          "count": 30.0
+        },
+        "Carousel clicked": {
+          "percent": 20.0,
+          "count": 40.0
+        }
+      },
+      "conversion_rate": 0.0,
+      "satisfaction_rate": 0.0,
+      "total_messages": null,
+      "cards": {
+        "Models most clicked": "Chevrolet Captiva",
+        "Interaction with the bot": "200 Clicks",
+        "Highest converting inquiry type": "serviceInquiry, 30.6%",
+        "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+        "Conversion Rate": "0%",
+        "Satisfaction Rate": "0%"
+      },
+      "complete": true,
+      "note": ""
+    },
+    {
+      "dealership_id": "11929",
+      "dealership_name": "Approved Automotive",
+      "date_range": "30 Days",
+      "url": "https://seezar-dashboard.seez.dev/dealership/11929/analytics/454",
+      "total_clicks": 200,
+      "events": {
+        "Forms submitted": {
+          "percent": 65.0,
+          "count": 130.0
+        },
+        "CTAs clicked": {
+          "percent": 15.0,
+          "count": 30.0
+        },
+        "Carousel clicked": {
+          "percent": 20.0,
+          "count": 40.0
+        }
+      },
+      "conversion_rate": 0.0,
+      "satisfaction_rate": 0.0,
+      "total_messages": null,
+      "cards": {
+        "Models most clicked": "Chevrolet Captiva",
+        "Interaction with the bot": "200 Clicks",
+        "Highest converting inquiry type": "serviceInquiry, 30.6%",
+        "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+        "Conversion Rate": "0%",
+        "Satisfaction Rate": "0%"
+      },
+      "complete": true,
+      "note": ""
+    }
+  ],
+  "comparisons": [
+    {
+      "metric": "More clicks",
+      "left": 200,
+      "right": 200
+    },
+    {
+      "metric": "More submitted forms",
+      "left": 130,
+      "right": 130
+    }
+  ],
+  "generated_at": "2026-09-01 15:05 UTC",
+  "warnings": [
+    "Both dealerships return identical engagement figures, which matches the example in the brief exactly. This card appears to serve fixed data on this environment rather than per-dealership values; the comparison is reported as a tie rather than inventing a winner."
+  ]
+}

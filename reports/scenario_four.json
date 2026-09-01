@@ -1,0 +1,831 @@
+{
+  "primary_range": "30 Days",
+  "comparison_range": "90 Days",
+  "scans": [
+    {
+      "dealership_id": "11357",
+      "dealership_name": "Al Ghandi Auto Al ghandi Arabic",
+      "primary": {
+        "dealership_id": "11357",
+        "dealership_name": "Al Ghandi Auto Al ghandi Arabic",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11357/analytics/396",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "11357",
+        "dealership_name": "Al Ghandi Auto Al ghandi Arabic",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11357/analytics/396",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "11357",
+          "dealership_name": "Al Ghandi Auto Al ghandi Arabic",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "11363",
+      "dealership_name": "Al Ghandi Auto Cadillac (AR)",
+      "primary": {
+        "dealership_id": "11363",
+        "dealership_name": "Al Ghandi Auto Cadillac (AR)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11363/analytics/397",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "11363",
+        "dealership_name": "Al Ghandi Auto Cadillac (AR)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11363/analytics/397",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "11363",
+          "dealership_name": "Al Ghandi Auto Cadillac (AR)",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "11365",
+      "dealership_name": "Al Ghandi Auto Cadillac (AR) (reserve)",
+      "primary": {
+        "dealership_id": "11365",
+        "dealership_name": "Al Ghandi Auto Cadillac (AR) (reserve)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11365/analytics/399",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "11365",
+        "dealership_name": "Al Ghandi Auto Cadillac (AR) (reserve)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11365/analytics/399",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "11365",
+          "dealership_name": "Al Ghandi Auto Cadillac (AR) (reserve)",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "11364",
+      "dealership_name": "Al Ghandi Auto Cadillac (reserve)",
+      "primary": {
+        "dealership_id": "11364",
+        "dealership_name": "Al Ghandi Auto Cadillac (reserve)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11364/analytics/404",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "11364",
+        "dealership_name": "Al Ghandi Auto Cadillac (reserve)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11364/analytics/404",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "11364",
+          "dealership_name": "Al Ghandi Auto Cadillac (reserve)",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "11359",
+      "dealership_name": "Al Ghandi Auto Chevrolet (AR)",
+      "primary": {
+        "dealership_id": "11359",
+        "dealership_name": "Al Ghandi Auto Chevrolet (AR)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11359/analytics/400",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "11359",
+        "dealership_name": "Al Ghandi Auto Chevrolet (AR)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11359/analytics/400",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "11359",
+          "dealership_name": "Al Ghandi Auto Chevrolet (AR)",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "11361",
+      "dealership_name": "Al Ghandi Auto GMC (AR)",
+      "primary": {
+        "dealership_id": "11361",
+        "dealership_name": "Al Ghandi Auto GMC (AR)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11361/analytics/398",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "11361",
+        "dealership_name": "Al Ghandi Auto GMC (AR)",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11361/analytics/398",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "11361",
+          "dealership_name": "Al Ghandi Auto GMC (AR)",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "15231",
+      "dealership_name": "Al Nabooda Automobiles",
+      "primary": {
+        "dealership_id": "15231",
+        "dealership_name": "Al Nabooda Automobiles",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/15231/analytics/-2",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "15231",
+        "dealership_name": "Al Nabooda Automobiles",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/15231/analytics/-2",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "15231",
+          "dealership_name": "Al Nabooda Automobiles",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "10083",
+      "dealership_name": "Al Tayer Motors",
+      "primary": {
+        "dealership_id": "10083",
+        "dealership_name": "Al Tayer Motors",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/10083/analytics/342",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "10083",
+        "dealership_name": "Al Tayer Motors",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/10083/analytics/342",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "10083",
+          "dealership_name": "Al Tayer Motors",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "14040",
+      "dealership_name": "A MatosCar",
+      "primary": {
+        "dealership_id": "14040",
+        "dealership_name": "A MatosCar",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/14040/analytics/518",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "14040",
+        "dealership_name": "A MatosCar",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/14040/analytics/518",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "14040",
+          "dealership_name": "A MatosCar",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "dealership_id": "11929",
+      "dealership_name": "Approved Automotive",
+      "primary": {
+        "dealership_id": "11929",
+        "dealership_name": "Approved Automotive",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11929/analytics/454",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "comparison": {
+        "dealership_id": "11929",
+        "dealership_name": "Approved Automotive",
+        "date_range": "30 Days",
+        "url": "https://seezar-dashboard.seez.dev/dealership/11929/analytics/454",
+        "total_clicks": 200,
+        "events": {
+          "Forms submitted": {
+            "percent": 65.0,
+            "count": 130.0
+          },
+          "CTAs clicked": {
+            "percent": 15.0,
+            "count": 30.0
+          },
+          "Carousel clicked": {
+            "percent": 20.0,
+            "count": 40.0
+          }
+        },
+        "conversion_rate": 0.0,
+        "satisfaction_rate": 0.0,
+        "total_messages": null,
+        "cards": {
+          "Models most clicked": "Chevrolet Captiva",
+          "Interaction with the bot": "200 Clicks",
+          "Highest converting inquiry type": "serviceInquiry, 30.6%",
+          "Busiest day in the last 7 days": "70 messages, Monday, February 24",
+          "Conversion Rate": "0%",
+          "Satisfaction Rate": "0%"
+        },
+        "complete": true,
+        "note": ""
+      },
+      "findings": [
+        {
+          "dealership_id": "11929",
+          "dealership_name": "Approved Automotive",
+          "severity": "warning",
+          "kind": "zero_conversion",
+          "detail": "conversion rate reported as 0% despite 200 clicks"
+        }
+      ],
+      "error": ""
+    }
+  ],
+  "generated_at": "2026-09-01 15:06 UTC",
+  "notes": [
+    "The brief specifies 7 days vs 30 days. The Analytics range control offers only 30 and 90 days, so those are compared instead; the ranges are parameters.",
+    "Scanned the first 10 of 82 dealerships in sidebar order."
+  ]
+}

@@ -80,6 +80,8 @@ async def run_goal(
         headless=settings.headless if headless is None else headless,
         artifacts_dir=trace.dir,
         base_url=target.base_url,
+        # Reuse the human-bootstrapped session for targets behind OTP or SSO.
+        storage_state=target.auth_state_path,
     )
     await session.start()
 

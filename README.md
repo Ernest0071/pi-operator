@@ -1,205 +1,102 @@
-# PI Operator
+# Seezar Autonomous Operator
 
-An autonomous operator that completes dealership workflows by driving a
-dealership management system **through a browser** — reading the DOM, clicking,
-typing, recovering from errors, and stopping for a human before anything
-irreversible.
+Two autonomous operators that complete the assessment scenarios by driving the
+Seezar Dashboard **through a real browser** — signing in, navigating the
+dealership tree, opening Analytics, applying date ranges, reading the charts out
+of the DOM, and writing a report.
 
-No API shortcuts on the execution path. The operator does the work the way a
-member of staff does, because that is the only way it can work against a DMS
-that has no API for the thing you need.
+No API shortcuts on the execution path. Everything the operator knows, it read
+off a rendered page.
 
----
-
-## Assumptions this was built under
-
-The brief for this exercise did not exist, and access to the dashboard was not
-granted. Rather than wait, I defined the problem and built against it. Stating
-that plainly up front:
-
-| | |
-|---|---|
-| **Written brief** | None was issued. |
-| **Dashboard access** | Requested, never granted. |
-| **Therefore** | I chose the domain problem, the target system, and the success criteria myself, and documented each choice. |
-
-Where that changed a decision, it is called out in [`DESIGN.md`](DESIGN.md).
-The one structural consequence: the operator drives a **self-hosted** target,
-so the seam that would point it at your DMS is an explicit, documented
-interface — see [`ADAPTERS.md`](ADAPTERS.md).
+- **Scenario I** — compare engagement between two dealerships → [`reports/scenario_one.md`](reports/scenario_one.md)
+- **Scenario IV** — anomaly sweep across the first 10 dealerships → [`reports/scenario_four.md`](reports/scenario_four.md)
 
 ---
 
-## What it does
-
-Given a goal in plain language:
-
-> *"Add a vehicle to inventory: VIN 1N4AL3AP8JC001001, a 2021 Nissan Altima SV,
-> 38,400 miles, condition Good, asking price 19,750. List it."*
-
-the operator plans the work, drives the DMS to do it, verifies the record
-actually exists, and produces a replayable audit trail. If the goal requires
-committing money or doing something irreversible, it stops and waits for a
-human.
-
-Three workflows are implemented:
-
-| Workflow | Proves |
-|---|---|
-| **Vehicle intake** | Multi-step form entry, server-side validation recovery |
-| **Deal desk** | Money, irreversible submission, human-in-the-loop approval |
-| **Inventory aging report** | Read, paginate, extract to schema, export |
-
----
-
-## Quickstart
+## Running it
 
 ```bash
 python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/playwright install chromium
-cp .env.example .env          # add your ANTHROPIC_API_KEY
+cp .env.example .env            # set PI_TARGET_USERNAME to your dashboard email
 
-.venv/bin/pi dms --reset      # terminal 1: the target DMS on :8080
-.venv/bin/pi serve            # terminal 2: operator console on :8090
+.venv/bin/pi login              # complete the emailed one-time code once
+.venv/bin/pi scenario one       # -> reports/scenario_one.md
+.venv/bin/pi scenario four      # -> reports/scenario_four.md
+.venv/bin/pi recon              # re-survey the dashboard's structure
 ```
 
-Then either drive it from the console, or:
-
-```bash
-pi run "Add a vehicle to inventory: VIN 1N4AL3AP8JC001001, a 2021 Nissan Altima SV, \
-38,400 miles, condition Good, asking price 19,750. List it." --headed
-```
-
-Other commands:
-
-```bash
-pi eval                    # full eval suite -> EVAL_REPORT.md
-pi eval -s deal-02-approval-gate --headed
-pi runs                    # recent runs
-pi trace <run_id>          # open the audit report
-pi skills list             # deterministic skills currently promoted
-python -m pi_operator.mcp_server   # expose the operator over MCP
-```
+Add `--headed` to watch any of them work.
 
 ---
 
-## How it works
+## Design decisions worth explaining
 
-```
-                      ┌──────────────────────────────────────┐
-   natural language   │            SUPERVISOR                 │
-   goal ─────────────▶│      (LangGraph state machine)        │
-                      └───┬───────────┬──────────┬────────────┘
-                          │           │          │
-                  ┌───────▼──┐ ┌──────▼─────┐ ┌──▼──────────┐
-                  │ PLANNER  │ │  NAVIGATOR │ │  VERIFIER   │
-                  └───────┬──┘ └──────┬─────┘ └──┬──────────┘
-                          │           │          │
-                          │    ┌──────▼──────────▼───────┐
-                          │    │   TOOL REGISTRY (17)     │
-                          │    │  risk metadata per tool  │
-                          │    └──────┬───────────────────┘
-                  ┌───────▼───────────▼──────┐      ┌──────────────┐
-                  │  SKILL LIBRARY           │─────▶│ APPROVAL GATE│
-                  │ deterministic replay     │      │   (human)    │
-                  └───────┬──────────────────┘      └──────┬───────┘
-                  ┌───────▼──────────┐              ┌──────▼───────┐
-                  │ PERCEPTION       │              │ AUDIT TRACE  │
-                  │ a11y tree + DOM  │              │  replayable  │
-                  └───────┬──────────┘              └──────────────┘
-                  ┌───────▼──────────┐
-                  │ PLAYWRIGHT       │
-                  └───────┬──────────┘
-                          ▼
-                    TARGET DMS  (browser only)
-```
+**Authentication is human-in-the-loop, once.** Seezar signs in with a one-time
+code sent by email. There is no password an operator could hold, and an agent
+with mailbox access would be a far larger security surface than this task
+justifies. So `pi login` has a human complete the code once; the browser session
+is persisted and every run reuses it. Expiry is detected and reported rather
+than worked around.
 
-Four ideas carry most of the weight. Each is argued properly in
-[`DESIGN.md`](DESIGN.md):
+**Perception, not scraping.** A distiller runs inside the page and emits a
+compact, indexed view of what an operator could perceive — roles, accessible
+names, values, states — tagging each element so the follow-up action resolves to
+exactly the node that was perceived. Building it against this dashboard exposed
+two gaps worth noting:
 
-**1. Perception, not scraping.** Raw HTML is expensive and mostly noise. A
-distiller runs in the page and emits only what an operator could perceive and
-act on, tagging each element with `data-pi-ref` so the follow-up action resolves
-to exactly the node that was perceived:
+- The dealership tree is `<li>` elements with JavaScript-bound click handlers,
+  not links. Nothing in the markup marks them interactive, so the first version
+  perceived **2 elements on a 401 KB page**. Detecting `cursor: pointer` — the
+  one trace such handlers leave — took it to 43.
+- The tab buttons carry `aria-label=""`, which suppresses their accessible name.
+  Playwright's `get_by_role("button", name="Analytics")` silently never matches.
 
-```
-[e3] textbox "VIN" required in:Identification
-[e4] combobox "Make" value='Honda' options=['Toyota', 'Honda'] in:Identification
-[e7] button "Save Vehicle" in:Pricing
-```
+**Charts are read from markup, not pixels.** The engagement donut is a
+`<canvas>`, but its legend is real DOM text (`Forms submitted 65% (130)`), so
+extraction reads the legend rows structurally. No OCR, no vision model.
 
-Measured on the intake form: **4,768 characters of HTML → 19 elements**, and the
-ratio improves on bigger pages. After an action the model receives a *diff*, so
-step 40 costs about what step 4 did.
+**Deterministic where the page is known.** `read_analytics()` is the single unit
+both scenarios are built on: one dealership, one date range, every metric. It is
+plain scripted extraction, because the structure is known and stable and a model
+would only make it slower and non-reproducible. Scenario IV is that same unit run
+across 20 page loads. Alert thresholds are explicit constants, so the same
+figures always produce the same report.
 
-**2. Deterministic first, model second.** Known paths run as replayable skills;
-the model handles novelty and recovery. A successful model-driven trajectory is
-compiled into a skill and promoted only if it replays cleanly from a clean
-fixture twice. The system gets *more* deterministic the more it runs.
-
-**3. Guardrails derived, not enumerated.** Risk comes from what the tool
-declares about itself plus what the *element* says it does. "Submit for Finance
-Approval" and "Delete Deal" escalate to a human; "Save Draft" does not; typing
-45,000 into a price field escalates, typing 1,200 does not. Adding a dangerous
-tool cannot silently bypass the policy.
-
-**4. Verification that does not trust the agent.** A separate verifier with a
-**read-only tool subset** navigates back and reads the record, and where the
-target can be queried out-of-band that answer is authoritative. A form that
-submitted without error is not evidence.
+**Navigation by URL, not by clicking.** The Analytics tab is bound to a handler
+that needs the dealership's bot id, and while that is unresolved the click is
+**silently inert** — no navigation, no error, no failed network request. That
+cost real debugging time and is the hardest class of failure to detect.
+`/dealership/{id}/analytics` redirects to the right view on its own, so the
+operator navigates directly and verifies the URL before reading anything.
 
 ---
 
-## Testing
+## Findings about the environment
 
-```bash
-pytest                    # 51 unit tests, no API key or network needed
-pi dms & pytest -m live   # 11 integration tests against a real browser
-```
+These affect what a *correct* answer looks like, so they are reported rather
+than smoothed over.
 
-The integration tests drive the whole lower stack — perception, session, tools,
-guardrails, self-healing resolution — with **no LLM involved**. When a run
-misbehaves, that separation tells you whether the machinery or the model is at
-fault.
+**1. Engagement data is identical everywhere.** All 10 dealerships scanned
+return exactly 200 clicks, 130 forms submitted, 30 CTAs clicked, 40 carousel
+clicked — matching the example in the brief exactly. This card appears to serve
+fixed data on this environment.
 
----
+So the honest answer to Scenario I's *"for which dealership are clicks more and
+submitted forms more?"* is **neither — they are identical**. The operator
+reports the tie. An agent that manufactured a winner to satisfy the question
+would be confidently wrong, and that is precisely the failure this is built to
+avoid.
 
-## The target
+**2. Scenario IV asks for 7 days vs 30 days; that range does not exist.** The
+Analytics range control offers only *30 Days* and *90 Days*. There are 7/14-day
+buttons on the page, but they belong to the "Busiest day" card rather than the
+page range, so using them would compare two different things. The operator
+compares 30 vs 90 and says so in the report. The ranges are parameters.
 
-The operator drives a **mock DMS** bundled in `mock_dms/`, which exists to be
-hostile in the ways real enterprise software is: element ids regenerate on every
-render, saves validate server-side, the deal wizard holds state across three
-requests, submitting raises a native `confirm()`, and sessions expire.
-
-It also does something a real target cannot: **fail on command**. Latency
-spikes, rejected saves, renamed buttons, mid-run session expiry and 500s are all
-injectable, which is what makes the recovery numbers in
-[`EVAL_REPORT.md`](EVAL_REPORT.md) measurements rather than anecdotes.
-
-An ERPNext adapter is also included ([`ADAPTERS.md`](ADAPTERS.md)) for running
-against a real third-party ERP configured as a dealership.
-
-**Honest limitation:** neither target is a real DMS. The mock is a fixture I
-wrote; ERPNext is an analogue where vehicles are Items. What transfers is the
-architecture and the adapter seam, not the specific selectors.
-
----
-
-## Evaluation
-
-15 scenarios across the three workflows. Success is asserted **against the
-target's database**, never the agent's own report, and scenarios come in three
-kinds:
-
-- `success` — should complete the workflow
-- `needs_human` — should **stop and ask** (completing it is a failure)
-- `blocked` — should refuse or fail cleanly
-
-That third category is the one most agent evals omit, and it is where agents
-that invent data to finish a task get caught. Five scenarios inject faults, so
-the report separates "worked on a clean run" from "worked despite a fault".
-
-See [`EVAL_REPORT.md`](EVAL_REPORT.md).
+**3. Conversion Rate reads 0%** on every dealership scanned despite non-zero
+clicks, which the sweep flags. `read_analytics` also computes forms ÷ clicks
+(65%) alongside it, since which figure the brief means is unconfirmed.
 
 ---
 
@@ -207,21 +104,26 @@ See [`EVAL_REPORT.md`](EVAL_REPORT.md).
 
 ```
 pi_operator/
-  browser/     perception distiller, session, tool registry
-  agents/      planner, navigator, verifier, extractor, prompts
-  graph/       run state, LangGraph supervisor
-  guardrails/  risk policy and approval rules
-  skills/      deterministic replay, self-healing resolution, promotion
-  targets/     adapters (mock DMS, ERPNext) — the seam to a real system
-  audit/       JSONL trace + HTML report
-  api/         operator console and HTTP API
-mock_dms/      the eval fixture, with fault injection
-evals/         scenarios and harness
+  browser/      perception distiller, session, tool registry
+  targets/      SeezarAdapter — all dashboard-specific knowledge lives here
+  scenarios/    read_analytics (shared unit), scenario_one, scenario_four
+  recon.py      surveys the dashboard and records its real structure
+  agents/       planner, navigator, verifier  (goal-driven operator layer)
+  graph/        LangGraph supervisor with resumable human approval gates
+  guardrails/   risk policy derived from tool and element semantics
+reports/        generated scenario reports
 ```
 
-## Non-goals
+`pi recon` surveys the dashboard and writes its structure, screenshots and HTML
+snapshots to `recon/`. That output is kept out of version control because it
+contains full captures of a live customer dashboard; re-run the command to
+regenerate it.
 
-- Not a general-purpose web agent — scoped to dealership workflows on a known target
-- **No RAG, no vector store** — deliberate; the brief's context asked for operators that act
-- No fine-tuning
-- The mock DMS is a fixture, not a product
+## Limitations
+
+- Both scenarios are read-only, so the write-safety machinery (approval gates,
+  irreversibility rules) is present but not exercised by them.
+- The dashboard is intermittently degraded; runs retry and report failure
+  explicitly rather than presenting a partial read as a result.
+- The eval harness and mock fixture in this repo target an earlier problem
+  statement and are not part of the two scenarios above.

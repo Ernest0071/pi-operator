@@ -98,6 +98,7 @@ class Snapshot(BaseModel):
     elements: list[Element] = Field(default_factory=list)
     tables: list[Table] = Field(default_factory=list)
     alerts: list[str] = Field(default_factory=list)
+    text: list[str] = Field(default_factory=list)
     truncated: bool = False
     scroll: dict[str, int] = Field(default_factory=dict)
 
@@ -112,12 +113,13 @@ class Snapshot(BaseModel):
                 "url": self.url,
                 "els": sorted(e.identity + "=" + e.value for e in self.elements),
                 "alerts": sorted(self.alerts),
+                "text": sorted(self.text),
             },
             sort_keys=True,
         )
         return hashlib.sha256(payload.encode()).hexdigest()[:16]
 
-    def render(self, max_elements: int = 120) -> str:
+    def render(self, max_elements: int = 120, max_text: int = 80) -> str:
         lines = [f"URL: {self.url}", f"TITLE: {self.title}"]
         if self.alerts:
             lines.append("ALERTS: " + " | ".join(self.alerts))
@@ -136,6 +138,13 @@ class Snapshot(BaseModel):
         for table in self.tables:
             lines.append("")
             lines.append(table.render())
+        if self.text:
+            lines.append("")
+            lines.append("PAGE TEXT:")
+            for chunk in self.text[:max_text]:
+                lines.append(f"  {chunk}")
+            if len(self.text) > max_text:
+                lines.append(f"  ... ({len(self.text) - max_text} more text blocks)")
         return "\n".join(lines)
 
 

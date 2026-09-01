@@ -38,6 +38,10 @@ class Settings(BaseSettings):
 
     # --- artifacts ---
     runs_dir: Path = REPO_ROOT / "runs"
+    # Persisted browser session (cookies + localStorage). Targets behind OTP or
+    # SSO cannot be logged into autonomously; a human bootstraps once and the
+    # operator reuses the session until it expires.
+    auth_dir: Path = REPO_ROOT / ".auth"
 
     def model_post_init(self, _ctx) -> None:
         # ANTHROPIC_API_KEY is conventionally unprefixed; accept it without PI_.
